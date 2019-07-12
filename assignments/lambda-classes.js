@@ -25,6 +25,25 @@ class Instructor extends Person {
   grade(student, subject) {
     console.log(`${student.name} receives a perfect score on ${subject}.`);
   }
+  pointsFrom(student) {
+    let points = Math.floor(Math.random() * (1 + 25 - 1)) + 1;
+    let plusOrMinus = Math.round(Math.random());
+    if (plusOrMinus === 0) {
+      student.grade = student.grade - points;
+      console.log(
+        `${points} points from ${student.className}! ${
+          student.name
+        }, your grade is now ${student.grade}.`
+      );
+    } else {
+      student.grade = student.grade + points;
+      console.log(
+        `${points} points to ${student.className}! ${
+          student.name
+        }, your grade is now ${student.grade}.`
+      );
+    }
+  }
 }
 
 class Student extends Person {
@@ -33,6 +52,7 @@ class Student extends Person {
     this.previousBackground = studentAttr.previousBackground;
     this.className = studentAttr.className;
     this.favSubjects = studentAttr.favSubjects;
+    this.grade = studentAttr.grade;
   }
   listsSubjects() {
     for (let i = 0; i < this.favSubjects.length; i++) {
@@ -44,6 +64,15 @@ class Student extends Person {
   }
   sprintChallenge(subject) {
     console.log(`${this.name} has begun sprint challenge on ${subject}.`);
+  }
+  graduate() {
+    if (this.grade >= 70) {
+      console.log(`My grade is ${this.grade}%! I get to graduate!`);
+    } else {
+      console.log(`My grade is ${this.grade}%, I can't graduate yet.`);
+      dumbledore.pointsFrom(this);
+      this.graduate();
+    }
   }
 }
 
@@ -108,7 +137,8 @@ const neville = new Student({
   location: "Hogwarts",
   previousBackground: "Herbology student",
   className: "WebPT8",
-  favSubjects: ["Herbology", "Transfiguration", "Care of Magical Creatures"]
+  favSubjects: ["Herbology", "Transfiguration", "Care of Magical Creatures"],
+  grade: 65
 });
 
 const ruth = new Student({
@@ -117,7 +147,8 @@ const ruth = new Student({
   location: "Denver",
   previousBackground: "Biology teacher",
   className: "iOS4",
-  favSubjects: ["CSS", "LESS", "Entomology", "JavaScript"]
+  favSubjects: ["CSS", "LESS", "Entomology", "JavaScript"],
+  grade: 98
 });
 
 const luna = new Student({
@@ -126,7 +157,8 @@ const luna = new Student({
   location: "Devon",
   previousBackground: "Quibbler enthusiast",
   className: "UX9",
-  favSubjects: ["Magizoology", "Study of Ancient Ruins", "Divination"]
+  favSubjects: ["Magizoology", "Study of Ancient Ruins", "Divination"],
+  grade: 94
 });
 
 // project managers
@@ -187,3 +219,9 @@ hermione.grade(luna, "Bezoars");
 hermione.standUp("CS6_Hermione");
 percy.standUp("WebPT8_Percy");
 percy.debugsCode(ruth, "Advanced CSS");
+
+// stretch
+dumbledore.pointsFrom(luna);
+luna.graduate();
+dumbledore.pointsFrom(neville);
+neville.graduate();
