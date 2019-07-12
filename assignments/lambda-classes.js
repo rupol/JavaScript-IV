@@ -197,7 +197,7 @@ petunia.speak();
 // instructor
 hagrid.speak();
 dumbledore.speak();
-dumbledore.demo("");
+dumbledore.demo("my favorite candies");
 hagrid.demo("blast-ended screwts");
 hagrid.grade(hermione, "hippogriffs");
 dumbledore.grade(luna, "Bertie Bot's Every Flavor Beans");
